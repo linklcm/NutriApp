@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="title">Cadastro de Projetos</ui:define>
+	<ui:define name="conteudo">
+		<h2>Cadastro de Usuários</h2>
+		<p:messages id="msg" autoUpdate="true" />
+
+		<h:form id="usuarios">			
+  			<div class="campo-simples">
+		 	<p:dataTable var="usu" value="#{usuarioBean.usuarios}" id="tblUsuarios" rows="30" 
+		 	rowKey="#{usu.nome}" selection="#{usuarioBean.selectedUsuario}" selectionMode="single"
+			 emptyMessage="Não há usuários cadastrados." rowsPerPageTemplate="30,60,90" paginator="true"
+			 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">		     
+				
+				<p:column headerText="Nome" style="text-align:center; width:200px">  
+					<h:outputText value="#{usu.nome}" styleClass="left" />
+	    	    </p:column>
+        
+         		<p:column headerText="Nome Usuário" style="text-align:center; width:80px">  
+					<h:outputText value="#{usu.nomeUsuario}" />
+		        </p:column>           	 
+		        
+		        <p:column headerText="e-mail" style="text-align:center; width:200px">  
+					<h:outputText value="#{usu.email}" />
+		        </p:column>
+		        
+		        <p:column headerText="Data Fim" style="text-align:center; width:40px">  
+					<h:outputText value="#{usu.dataFim}" />
+		        </p:column>
+		        
+		        <p:column headerText="Ativo" style="text-align:center; width:30px">  
+					<p:selectBooleanCheckbox value="#{usu.ativo}" disabled="true"/>
+		        </p:column>
+		        
+		        <p:column style="width:32px;text-align: center">		        
+             		<p:commandButton update="tblUsuarios" icon="ui-icon-locked" rendered="#{!usu.ativo}" action="#{usuarioBean.ativar()}">
+                		<f:setPropertyActionListener value="#{usu}" target="#{usuarioBean.selectedUsuario}" />
+            		</p:commandButton>
+            		<p:commandButton update="tblUsuarios" icon="ui-icon-unlocked" rendered="#{usu.ativo}" action="#{usuarioBean.desativar()}">
+                		<f:setPropertyActionListener value="#{usu}" target="#{usuarioBean.selectedUsuario}" />
+            		</p:commandButton>
+        		</p:column>
+        		
+        		
+        		<p:column style="width:32px;text-align: center">		        
+             		<p:commandButton update="tblUsuarios" icon="ui-icon-circle-close" action="#{usuarioBean.excluir()}">
+                		<f:setPropertyActionListener value="#{usu}" target="#{usuarioBean.selectedUsuario}" />
+            		</p:commandButton>       
+        		</p:column>
+			</p:dataTable> 					
+			</div>
+			<div class="campo-botoes">
+				<p:commandButton value="Alterar Usuário" action="#{usuarioBean.alterarUsuario()}" ajax="false"/>			
+				<p:commandButton value="Novo Usuário" action="#{usuarioBean.novoUsuario()}" ajax="false"/>			
+			</div>		
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

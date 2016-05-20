@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+
+<ui:composition template="/templates/templatelogin.xhtml">
+	<ui:define name="title">ACESSO</ui:define>
+	<ui:define name="conteudo-login">
+		<h2>Acesso</h2>
+		<h:panelGroup rendered="#{!empty param.login_error}">
+			<fieldset style="width: 200px;">
+				<legend>Erro ao efetuar o login.</legend>
+				Motivo: #{SPRING_SECURITY_LAST_EXCEPTION.message}
+			</fieldset>
+		</h:panelGroup>
+		<form id="login" method="post"
+			action="#{request.contextPath}/j_spring_security_check">
+			<fieldset style="width: 200px;">
+				<div class="campo-simples">
+					<h:outputLabel value="Login" for="j_username" />
+					<h:inputText id="j_username" style="height: 23px; width: 200px;"
+					title="Digite o nome de usuário"
+						class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" />
+				</div>
+				<div class="campo-simples">
+					<h:outputLabel value="Senha" for="j_password" />
+					<h:inputSecret id="j_password" feedback="false"
+						title="Digite a senha"
+						style="height: 23px; width: 200px;"
+						class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" />
+				</div>
+				<div class="campo-botoes">
+					<h:commandButton value="Entrar" title="Clique para entrar"
+						style="height: 30px; width: 70px" 
+						class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" />
+				</div>
+			</fieldset>
+			<script>
+				document.getElementById("login").j_username.value = "#{SPRING_SECURITY_LAST_USERNAME}";
+			</script>
+		</form>
+	</ui:define>
+</ui:composition>
+</html>

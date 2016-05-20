@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">  
+<!-- Altera Senha -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+
+<ui:composition template="/templates/templatealterarsenha.xhtml">
+	<ui:define name="title">Alterar Senha</ui:define>
+	<ui:define name="conteudo-login">
+		<h2>Alterar Senha</h2>
+		<h:form>
+			<p:messages autoUpdate="true" showDetail="true" showSummary="false" />
+			<fieldset style="width: 200px;">
+				<div class="campo-simples">
+					<h:outputLabel value="Senha Atual" />
+					<p:password id="edtSenhaAtual" value="#{alteraSenhaBean.senhaAtual}" style="height: 23px; width: 200px;" 
+					required="true" requiredMessage="É necessário informar a senha atual!" 
+					 maxlength="60" promptLabel="Digite a senha senha atual"/>
+				</div>
+				<div class="campo-simples">
+					<h:outputLabel value="Nova senha " />
+					<p:password id="Senha" value="#{alteraSenhaBean.novaSenha}"
+						style="height: 23px; width: 200px;" 
+						required="true" requiredMessage="É necessário informar a nova senha!"
+						maxlength="60" promptLabel="Digite a nova senha" weakLabel="Senha fraca" goodLabel="Senha boa"
+						strongLabel="Senha forte" />
+				</div>
+				<div class="campo-simples">
+					<h:outputLabel value="Confirme a nova senha " />
+					<p:password feedback="false" id="confirmaSenha" value="#{alteraSenhaBean.confirmaSenha}"
+						style="height: 23px; width: 200px;" maxlength="60" 
+						required="true" requiredMessage="É necessário informar a nova senha novamente para confirmar a alteração!"/>
+				</div>
+				<div class="campo-botoes">
+					<h:commandButton value="Salvar" style="height: 30px; width: 70px"
+						action="#{alteraSenhaBean.alterarSenha}" title="Clique para entrar com a senha já alterada"/>
+				</div>
+			</fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

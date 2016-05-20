@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+<h:head>
+	<link rel="stylesheet" type="text/css" media="screen"
+		href="../recursos/css/estilos.css" />
+</h:head>
+
+<ui:composition>
+	<h:form id="menuSisAuto">
+		<p:tieredMenu style="width:180px">
+			<p:menuitem value="Página Principal" url="/restrito/principal.jsf"
+				icon="ui-icon-home" />			
+
+			<sec:ifAnyGranted roles="ROLE_ADMINISTRADOR">
+				<p:submenu label="Cadastro">
+					<p:menuitem value="Usuários" ajax="false"
+						action="#{menuBean.usuarios()}" />
+
+					<p:menuitem value="Categorias" ajax="false"
+						action="#{menuBean.categorias()}" />
+				</p:submenu>
+			</sec:ifAnyGranted>
+		</p:tieredMenu>
+
+	</h:form>
+</ui:composition>
+
+</html>

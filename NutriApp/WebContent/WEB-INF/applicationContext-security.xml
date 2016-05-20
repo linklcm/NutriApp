@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:b="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security-3.2.xsd">	
+
+	<http authentication-manager-ref="dao-auth">					
+		<intercept-url pattern="/restrito/**" access="ROLE_ADMINISTRADOR" />		
+		<form-login login-page="/publico/login.jsf"
+			authentication-failure-url="/publico/login.jsf?login_error=1"
+			authentication-success-handler-ref="successHandler" />
+		<logout logout-success-url="/restrito/principal.jsf" />
+	</http>	
+	
+	<authentication-manager id="dao-auth">
+		<authentication-provider user-service-ref="userService">
+			<password-encoder hash="md5"/>         
+  		</authentication-provider>
+  	</authentication-manager>
+</b:beans>

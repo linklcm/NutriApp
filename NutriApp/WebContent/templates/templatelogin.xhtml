@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta http-equiv="content-language" content="pt-br" />	
+	<link rel="stylesheet" type="text/css" media="screen" href="../recursos/css/estilos.css" />
+
+	<title>AppCom - <ui:insert name="title"></ui:insert></title>
+
+</h:head>
+<h:body>
+	<div id="principal">
+		<div id="cabecalho">
+			<h1>AppCom</h1>
+		</div>
+		<div id="info">
+			<ul>
+				<li class="usuario"><h:outputText
+						value="AppComp-ADM"
+						rendered="#{!empty contextoBean}" /></li>
+				<li class="sair"><h:outputLink
+						value="#{request.contextPath}/j_spring_security_logout"
+						rendered="#{!empty contextoBean.usuario}">Sair</h:outputLink></li>
+			</ul>
+			<div style="clear: both;"></div>
+		</div>
+		<div id="conteudo-login">
+			<ui:insert name="conteudo-login">Conte&uacute;do</ui:insert>
+		</div>
+		<div id="rodape">
+			<p>Laboratório em Engenharia de Software</p>
+			<p>Análise e Desenvolvimento de Sistemas</p>
+			<p><a href="http://www.fatecid.com.br/v2014/index.php">Fatec Indaiatuba</a></p>
+		</div>
+	</div>
+</h:body>
+</html>
