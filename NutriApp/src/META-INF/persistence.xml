@@ -23,7 +23,10 @@
    <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
    <property name="hibernate.jdbc.batch_size" value="50" />
    <!-- <property name="javax.persistence.lock.timeout" value="30000"/> -->
-      
+     
+     
+    <!-- necessário para conseguir pegar via lookup o entityMangerFactory -->
+	<property name="jboss.entity.manager.factory.jndi.name" value="java:jboss/PUNutriApp" />
   </properties>
   
  </persistence-unit>

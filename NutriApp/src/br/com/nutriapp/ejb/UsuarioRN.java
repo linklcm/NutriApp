@@ -4,9 +4,8 @@ import java.util.List;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 import org.hibernate.criterion.Restrictions;
 
@@ -24,31 +23,27 @@ public class UsuarioRN {
 			
 	private GenericDAO<Usuario> usuarioDAO;
 	
-		
-	public UsuarioRN() {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("PU");
-		EntityManager manager = factory.createEntityManager(); //JPAUtil.getEntityManagerFactory().createEntityManager();		
-		usuarioDAO = new GenericDAO<Usuario>(manager);;
-	}
+	@Inject
+	private EntityManager entityManager;
 
 	public Usuario buscarPorNome(String nome) {		
-		//GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
+		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
 		return usuarioDAO.buscar().comCriterio(Restrictions.eq("nome", nome)).um();
 	}
 
 	public List<Usuario> listar() {
-		//GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
+		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
 		return usuarioDAO.buscar().comOrdenadoAsc("nomeUsuario").lista();
 	}
 
 	public Usuario findById(Long id) {
-		//GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
+		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
 		return usuarioDAO.carregar(id);
 	}
 
 	public void salvar(Usuario usuario, String senha, String senhaConfirmacao) throws Exception, 
 		UsuarioJaCadastradoException, SenhasNaoConferemException {
-		//GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager, Usuario.class);
+		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager, Usuario.class);
 		
 		if (!senha.equals(senhaConfirmacao)) {		
 			throw new SenhasNaoConferemException();
@@ -85,13 +80,13 @@ public class UsuarioRN {
 	}
 	
 	public void desativar(Usuario usuario) throws Exception {
-		//GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
+		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
 		usuario.setAtivo(false);
 		usuarioDAO.salvar(usuario);
 	}
 	
 	public Boolean verificaSenha(Usuario usuario, String senhaAtual) {
-		//GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
+		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
 		Usuario usuarioPersistido = usuarioDAO.carregar(usuario.getId());
 		if (usuarioPersistido.getSenha().equals(GeralUtil.md5(senhaAtual))) {
 			return true;
@@ -102,7 +97,7 @@ public class UsuarioRN {
 	public void definirSenha(Usuario usuario, String senhaAtual, String novaSenha, String confirmaSenha) throws 
 		Exception, SenhaInvalidaException, SenhasNaoConferemException {
 		
-		//GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
+		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
 		
 		if(!this.verificaSenha(usuario, senhaAtual)){
 			throw new SenhaInvalidaException();
@@ -118,12 +113,12 @@ public class UsuarioRN {
 	}	
 	
 	public Usuario atualizar(Usuario usuario) throws Exception {
-		//GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
+		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
 		return usuarioDAO.salvar(usuario);
 	}
 
 	public void excluir(Usuario usuario) throws Exception {
-		//GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
+		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
 		usuarioDAO.excluir(usuario);
 	}
 }

@@ -22,14 +22,13 @@ public class ContextoBean implements Serializable {
 	
 	private TimeZone timeZone = TimeZone.getDefault();
 	
-	/*@Inject
-	UsuarioRN usuarioRN;*/
+	@Inject
+	UsuarioRN usuarioRN;
 	
 	@PostConstruct
 	public void init() {
 		Usuario usuario = new Usuario("linklcm", "linklcm@gmail.com", "linklcm");
-		 try {
-			 UsuarioRN usuarioRN = new UsuarioRN();
+		 try {			 
 			 usuarioRN.salvar(usuario, "link", "link");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

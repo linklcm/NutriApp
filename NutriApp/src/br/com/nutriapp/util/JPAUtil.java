@@ -1,7 +1,9 @@
 package br.com.nutriapp.util;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class JPAUtil {
 	
@@ -12,15 +14,15 @@ public class JPAUtil {
 	 * @return
 	 */
 	public static EntityManagerFactory getEntityManagerFactory(){
-		/*Context ctx;
+		Context ctx;
 		EntityManagerFactory factory = null;		
 		try {
 			ctx = new InitialContext();
-			factory = (EntityManagerFactory)ctx.lookup("java:jboss/PUNutriApp");
+			factory = (EntityManagerFactory)ctx.lookup("java:jboss/PUAppComp");
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();		
-		}*/
-		return Persistence.createEntityManagerFactory("PU");
+		}
+		return factory;
 	}
 }
