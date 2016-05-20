@@ -33,7 +33,7 @@ public class UsuarioRN {
 
 	public List<Usuario> listar() {
 		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
-		return usuarioDAO.buscar().comOrdenadoAsc("nomeUsuario").lista();
+		return usuarioDAO.buscar().comOrdenadoAsc("nome").lista();
 	}
 
 	public Usuario findById(Long id) {

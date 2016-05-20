@@ -18,7 +18,7 @@ public class JPAUtil {
 		EntityManagerFactory factory = null;		
 		try {
 			ctx = new InitialContext();
-			factory = (EntityManagerFactory)ctx.lookup("java:jboss/PUAppComp");
+			factory = (EntityManagerFactory)ctx.lookup("java:jboss/PUNutriApp");
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();		

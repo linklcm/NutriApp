@@ -22,7 +22,7 @@ public class AppUserDetailsService implements UserDetailsService {
 		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(manager, Usuario.class);		
 
 		// busca o usuário pelo nome
-		Usuario usuario = usuarioDAO.buscar().comCriterio(Restrictions.eq("nomeUsuario", username)).um(); 						
+		Usuario usuario = usuarioDAO.buscar().comCriterio(Restrictions.eq("nome", username)).um(); 						
 		
 		if (usuario == null) {
 			throw new UsernameNotFoundException(username + " não encontrado");
