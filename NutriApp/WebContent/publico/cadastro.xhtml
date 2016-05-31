@@ -1,0 +1,69 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="title">Cadastro de Projetos</ui:define>
+	<ui:define name="conteudo">
+		<h2>Fazer Cadastro</h2>
+		<p:messages id="msg" autoUpdate="true" />
+
+		<h:form id="cadastro">
+			<p:fieldset id="fild">
+
+				<div class="campo-grupo">
+					<b><h:outputLabel value="Login" /></b>
+					<p:inputText size="20" value="#{cadastroBean.usuario.nome}"
+						id="edtLogin" />
+				</div>
+
+				<div class="campo-grupo">
+					<b><h:outputLabel value="E-mail" /></b>
+					<p:inputText size="100" value="#{cadastroBean.usuario.email}"
+						id="edtEmail" />
+				</div>
+
+				<div class="campo-grupo">
+					<b><h:outputLabel for="pwd1" value="Senha" /></b>
+					<p:password id="pwd1" size="20" value="#{cadastroBean.senha}" />
+				</div>
+				<div class="campo-grupo">
+					<b><h:outputLabel for="pwd2" value="Confirme a senha" /></b>
+					<p:password id="pwd2" size="20"
+						value="#{cadastroBean.senhaConfirmacao}" />
+				</div>
+
+				<div class="clear" />
+
+
+				<div class="campo-grupo">
+					<b><h:outputLabel value="Origem" /></b>
+					<p:selectOneMenu style="width:240px;"
+						value="#{cadastroBean.dieta}" filter="true">
+						<f:selectItem itemLabel="" />
+						<f:selectItem itemLabel="Dieta 1" />
+						<f:selectItem itemLabel="Dieta 2" />
+						<!-- <f:selectItems value="#{cadastroBean.permissoes}" var="p"
+							itemValue="#{p}" itemLabel="#{p}" /> -->
+					</p:selectOneMenu>
+				</div>
+
+
+			</p:fieldset>
+			<div class="campo-botoes">
+				<p:commandButton value="Salvar"
+					action="#{cadastroBean.salvaUsuario()}">
+				</p:commandButton>
+			</div>
+
+			<div class="campo-botoes">
+				<p:commandButton value="Voltar" process="@this"
+					action="#{cadastroBean.voltar()}">
+				</p:commandButton>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
