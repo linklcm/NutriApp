@@ -9,7 +9,7 @@
 		http://www.springframework.org/schema/security/spring-security-3.2.xsd">	
 
 	<http authentication-manager-ref="dao-auth">					
-		<intercept-url pattern="/restrito/**" access="ROLE_ADMINISTRADOR" />		
+		<intercept-url pattern="/restrito/**" access="ROLE_ADMINISTRADOR, ROLE_USUARIO" />		
 		<form-login login-page="/publico/login.jsf"
 			authentication-failure-url="/publico/login.jsf?login_error=1"
 			authentication-success-handler-ref="successHandler" />

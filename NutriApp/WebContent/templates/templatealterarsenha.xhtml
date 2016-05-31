@@ -19,7 +19,7 @@
 		<div id="info">
 			<ul>
 				<li class="usuario">						
-					<h:outputText id="usuarioLabel" value="#{contextoBean.usuario.nomeUsuario}" style="cursor:pointer"
+					<h:outputText id="usuarioLabel" value="#{contextoBean.usuario.nome}" style="cursor:pointer"
 					 rendered="#{!empty contextoBean}" title ="#{contextoBean.usuario.nome}"/>					
 					<p:overlayPanel id="usuarioPanel" for="usuarioLabel" showEffect="blind" hideEffect="fade" style="padding:20px">
 						<h:form>

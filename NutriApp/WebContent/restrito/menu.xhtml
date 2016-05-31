@@ -2,7 +2,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
 <h:head>
 	<link rel="stylesheet" type="text/css" media="screen"
 		href="../recursos/css/estilos.css" />
@@ -11,19 +12,26 @@
 <ui:composition>
 	<h:form>
 		<p:tieredMenu style="width:180px">
-			<p:menuitem value="Página Principal" url="/restrito/principal.jsf"
+			<p:menuitem value="Página Principal" url="/publico/principal.jsf"
 				icon="ui-icon-home" />
 
 			<p:menuitem value="Fazer cadastro" url="/publico/cadastro.jsf"
 				icon="ui-icon-person" />
-
-
-			<p:submenu label="Cadastro">
-				<p:menuitem value="Usuários" ajax="false"
-					action="#{menuBean.usuarios()}" />
-
-			</p:submenu>
-
+				
+			<sec:ifAnyGranted roles="ROLE_ADMINISTRADOR">
+				<p:submenu label="Cadastro">
+					<p:menuitem value="Usuários" ajax="false"
+						action="#{menuBean.usuarios()}" />
+				
+					<p:menuitem value="Dietas" ajax="false"
+						action="#{menuBean.deitas()}" />
+				</p:submenu>
+			</sec:ifAnyGranted>
+			
+			<p:separator rendered="#{contextoBean.usuario == null}"/>
+			
+			<p:menuitem value="Logar" url="/publico/login.jsf" rendered="#{contextoBean.usuario == null}" 
+				icon=" ui-icon-arrowthick-1-e" />
 		</p:tieredMenu>
 
 	</h:form>

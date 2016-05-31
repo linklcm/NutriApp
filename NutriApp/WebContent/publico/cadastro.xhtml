@@ -53,7 +53,7 @@
 
 			</p:fieldset>
 			<div class="campo-botoes">
-				<p:commandButton value="Salvar"
+				<p:commandButton value="Salvar" process="@form" update="@form"
 					action="#{cadastroBean.salvaUsuario()}">
 				</p:commandButton>
 			</div>

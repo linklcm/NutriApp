@@ -83,23 +83,20 @@ public class CadastroBean implements Serializable {
 		this.dieta = dieta;
 	}
 
-	public String salvaUsuario() {
+	public void salvaUsuario() {
 		
 		try {
-			usuarioRN.salvar(usuario, senha, senhaConfirmacao);
+			usuarioRN.novoUsuarioPadrao(usuario, senha, senhaConfirmacao);
 			
-			FacesContext.getCurrentInstance().getExternalContext().getFlash().put("usuarioSelecionado", usuario);
-			return "/restrito/usuarios?faces-redirect=true";
+			usuario = new Usuario();
+			FacesUtil.addMessage(FacesMessage.SEVERITY_INFO, "Cadastro efetuado com sucesso!");
 		} catch (SenhasNaoConferemException e) {
 			FacesUtil.addMessage(FacesMessage.SEVERITY_ERROR, "" + e.getMessage());
-			return "";
 		} catch (UsuarioJaCadastradoException e) {
 			FacesUtil.addMessage(FacesMessage.SEVERITY_ERROR, "" + e.getMessage());
-			return "";
 		} catch (Exception e) {
 			FacesUtil.addMessage(FacesMessage.SEVERITY_ERROR, "" + e.getMessage());
 			e.printStackTrace();
-			return "";
 		}
 	}	
 
