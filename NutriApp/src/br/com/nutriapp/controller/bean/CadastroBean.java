@@ -1,8 +1,6 @@
 package br.com.nutriapp.controller.bean;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -10,30 +8,28 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
+import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import br.com.nutriapp.ejb.UsuarioRN;
 import br.com.nutriapp.exception.SenhasNaoConferemException;
 import br.com.nutriapp.exception.UsuarioJaCadastradoException;
-import br.com.nutriapp.model.entity.Permissao;
 import br.com.nutriapp.model.entity.Usuario;
 import br.com.nutriapp.util.FacesUtil;
-import br.com.nutriapp.util.Role;
 
-@ManagedBean(name = "cadastroUsuarioBean")
+@ManagedBean
 @ViewScoped
-public class CadastoUsuarioBean implements Serializable {	
+public class CadastroBean implements Serializable {	
 
 	private static final long serialVersionUID = 5224777820210945920L;
 
-	private UsuarioRN usuarioRN;
+	@Inject
+	UsuarioRN usuarioRN;
 
 	private Usuario usuario;
 
-	private List<Role> permissoes = Arrays.asList(Role.values());
-	private Role role;
-	private Permissao permissao;
+	private String dieta;
 	
 	@NotNull(message="É necessário informar a senha")
 	@Size(min=4, max=10, message = "A senha deve ter entre {min} e {max} caracteres.")
@@ -44,9 +40,7 @@ public class CadastoUsuarioBean implements Serializable {
 	private String senhaConfirmacao;
 
 	@PostConstruct
-	public void iniciar() {
-		
-		usuarioRN = new UsuarioRN();
+	public void iniciar() {		
 		
 		Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
 		// deixa a entrada passada como selecionado na página 
@@ -65,22 +59,6 @@ public class CadastoUsuarioBean implements Serializable {
 		return usuario;
 	}
 	
-	public Role getRole() {
-		return role;
-	}
-	
-	public void setRole(Role role) {
-		this.role = role;
-	}
-	
-	public Permissao getPermissao() {
-		return permissao;
-	}
-
-	public void setPermissao(Permissao permissao) {
-		this.permissao = permissao;
-	}
-
 	public String getSenha() {
 		return senha;
 	}
@@ -89,16 +67,20 @@ public class CadastoUsuarioBean implements Serializable {
 		this.senha = senha;
 	}
 
-	public List<Role> getPermissoes() {
-		return permissoes;
-	}
-
 	public String getSenhaConfirmacao() {
 		return senhaConfirmacao;
 	}
 
 	public void setSenhaConfirmacao(String senhaConfirmacao) {
 		this.senhaConfirmacao = senhaConfirmacao;
+	}
+
+	public String getDieta() {
+		return dieta;
+	}
+
+	public void setDieta(String dieta) {
+		this.dieta = dieta;
 	}
 
 	public String salvaUsuario() {
@@ -119,27 +101,9 @@ public class CadastoUsuarioBean implements Serializable {
 			e.printStackTrace();
 			return "";
 		}
-	}
-
-	public void adicionaRole() {
-		if (role == null) {
-			FacesUtil.addMessage(FacesMessage.SEVERITY_WARN, "Informe o Perfil!");
-			return;
-		}
-		
-		for (Permissao per : usuario.getPermissoes()) {
-			if (per.getPermissao().equals(role.name())) return;
-		}
-		
-		this.usuario.addPermissao(new Permissao(role.name()));
-		this.role = null;
-	}
-
-	public void excluirPermissao() {
-		usuario.getPermissoes().remove(permissao);
-	}
+	}	
 
 	public String voltar(){
-		return "/restrito/usuarios?faces-redirect=true";
+		return "/publico/principal?faces-redirect=true";
 	}
 }

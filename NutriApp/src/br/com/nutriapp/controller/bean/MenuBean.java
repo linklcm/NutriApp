@@ -8,7 +8,7 @@ import javax.faces.bean.SessionScoped;
 public class MenuBean {
 
 	public String paginaPrincipal() {
-		return "/restrito/principal?faces-redirect=true";
+		return "/publico/cadastro?faces-redirect=true";
 	}
 	
 	public String paginaAlterarSenha() {
