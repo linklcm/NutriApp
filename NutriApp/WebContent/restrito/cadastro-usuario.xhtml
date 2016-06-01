@@ -1,0 +1,107 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="title">Cadastro de Projetos</ui:define>
+	<ui:define name="conteudo">
+		<h2>Cadastro de Usuário</h2>
+		<p:messages id="msg" autoUpdate="true" />
+
+		<h:form id="cadastro">
+			<p:fieldset id="fild">
+
+				<div class="campo-grupo">
+					<b><h:outputLabel value="Nome" /></b>
+					<p:inputText size="100" value="#{cadastroUsuarioBean.usuario.nome}"
+						id="edtNomePessoa" />
+				</div>				
+
+				<div class="campo-grupo">
+					<b><h:outputLabel value="E-mail" /></b>
+					<p:inputText size="100"
+						value="#{cadastroUsuarioBean.usuario.email}" id="edtEmail" />
+				</div>
+
+				<div class="campo-grupo">
+					<b><h:outputLabel for="pwd1" value="Senha" /></b>
+					<p:password id="pwd1" size="20" value="#{cadastroUsuarioBean.senha}" />
+				</div>
+				<div class="campo-grupo">
+					<b><h:outputLabel for="pwd2" value="Confirme a senha" /></b>
+					<p:password id="pwd2" size="20" value="#{cadastroUsuarioBean.senhaConfirmacao}"/>
+				</div>
+				
+				<div class="campo-grupo">
+					<b><h:outputLabel for="pwd2" value="Data Fim" /></b>
+					 <p:calendar id="mask" value="#{cadastroUsuarioBean.usuario.dataFim}" pattern="dd/MM/yyyy" mask="true" />
+				</div>
+
+				<div class="clear" />
+
+
+				<p:fieldset id="fieldPerfil" legend="Perfis de Acesso"
+					style="width:514px">
+					<div class="campo-grupo">
+						<b><h:outputLabel value="Origem" /></b>
+						<p:selectOneMenu style="width:240px;" id="idRole"
+							value="#{cadastroUsuarioBean.role}" filter="true"
+							>
+							<f:selectItem itemLabel="Selecione o Perfil" />
+							<f:selectItems value="#{cadastroUsuarioBean.permissoes}" var="p"
+								itemValue="#{p}" itemLabel="#{p}" />
+						</p:selectOneMenu>
+					</div>
+					<div class="campo-grupo">
+						<h:outputLabel value="." style="color:#FFFFFF" />
+						<p:commandButton alt="Adicionar Perfil de Acesso"
+							icon="ui-icon-plus"
+							process="cadastro:fieldPerfil"
+							action="#{cadastroUsuarioBean.adicionaRole()}"
+							update="cadastro:fieldPerfil" />
+					</div>
+					<div class="clear" />
+
+					<div class="campo-simples">
+						<p:dataTable id="tablePerfis" var="per"
+							value="#{cadastroUsuarioBean.usuario.permissoes}"
+							style="width: 531px;">
+
+							<p:column sortBy="nomePerfil" headerText="Perfil de Acesso"
+								style="text-align:center; width:200px">
+								<h:outputText value="#{per.permissao}" />
+							</p:column>
+
+							<p:column headerText="" style="text-align:center; width:5px">
+								<p:commandButton icon="ui-icon-circle-close"
+									title="Excluir Permissão"
+									action="#{cadastroUsuarioBean.excluirPermissao()}"
+									update="cadastro:fieldPerfil"
+									process="@this">
+									<f:setPropertyActionListener
+										target="#{cadastroUsuarioBean.permissao}" value="#{per}" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+					</div>
+				</p:fieldset>
+
+			</p:fieldset>
+			<div class="campo-botoes">
+				<p:commandButton value="Salvar"
+					action="#{cadastroUsuarioBean.salvaUsuario()}">
+				</p:commandButton>
+			</div>
+
+			<div class="campo-botoes">
+				<p:commandButton value="Voltar" process="@this"
+					action="#{cadastroUsuarioBean.voltar()}">
+				</p:commandButton>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

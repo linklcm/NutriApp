@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -21,13 +22,12 @@ public class UsuarioBean implements Serializable {
 	
 	private List<Usuario> usuarios = new ArrayList<Usuario>();
 	private Usuario selectedUsuario;
-		
+	
+	@EJB
 	private UsuarioRN usuarioRN;
 	
 	@PostConstruct
 	public void iniciar(){
-		usuarioRN = new UsuarioRN();
-		
 		// deixa a entrada passada como selecionado na página 
 		selectedUsuario = (Usuario)FacesContext.getCurrentInstance().getExternalContext().getFlash().get("usuarioSelecionado");
 		
