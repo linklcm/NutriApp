@@ -9,6 +9,7 @@ import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 
 import br.com.nutriapp.ejb.UsuarioRN;
+import br.com.nutriapp.model.entity.Permissao;
 import br.com.nutriapp.model.entity.Usuario;
 import br.com.nutriapp.security.SecurityUtil;
 import br.com.nutriapp.security.UserDetailsDTO;
@@ -28,6 +29,7 @@ public class ContextoBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		Usuario usuario = new Usuario("linklcm", "linklcm@gmail.com", "linklcm");
+		usuario.addPermissao(new Permissao("ROLE_ADMINISTRADOR"));
 		 try {			 
 			 usuarioRN.salvar(usuario, "link", "link");
 		} catch (Exception e) {

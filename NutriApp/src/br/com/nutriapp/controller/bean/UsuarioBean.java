@@ -1,15 +1,14 @@
 package br.com.nutriapp.controller.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 
 import br.com.nutriapp.ejb.UsuarioRN;
 import br.com.nutriapp.model.entity.Usuario;
@@ -20,11 +19,11 @@ import br.com.nutriapp.util.FacesUtil;
 public class UsuarioBean implements Serializable {			
 	private static final long serialVersionUID = -256366375673512473L;
 	
-	private List<Usuario> usuarios = new ArrayList<Usuario>();
+	private List<Usuario> usuarios;
 	private Usuario selectedUsuario;
 	
-	@EJB
-	private UsuarioRN usuarioRN;
+	@Inject
+	UsuarioRN usuarioRN;
 	
 	@PostConstruct
 	public void iniciar(){
@@ -42,7 +41,7 @@ public class UsuarioBean implements Serializable {
 	}	
 
 	public List<Usuario> getUsuarios() {
-		if(usuarios.isEmpty()){			
+		if(usuarios == null){
 			usuarios = usuarioRN.listar();
 		}
 		return usuarios;

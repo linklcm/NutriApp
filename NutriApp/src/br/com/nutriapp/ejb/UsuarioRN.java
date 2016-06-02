@@ -19,25 +19,23 @@ import br.com.nutriapp.util.GeralUtil;
 
 @Local
 @Stateless
-public class UsuarioRN {	
-			
-	private GenericDAO<Usuario> usuarioDAO;
+public class UsuarioRN {
 	
 	@Inject
 	private EntityManager entityManager;
 
 	public Usuario buscarPorNome(String nome) {		
-		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
+		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager, Usuario.class);
 		return usuarioDAO.buscar().comCriterio(Restrictions.eq("nome", nome)).um();
 	}
 
 	public List<Usuario> listar() {
-		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
+		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager, Usuario.class);
 		return usuarioDAO.buscar().comOrdenadoAsc("nome").lista();
 	}
 
 	public Usuario findById(Long id) {
-		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
+		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager, Usuario.class);
 		return usuarioDAO.carregar(id);
 	}
 
@@ -74,19 +72,19 @@ public class UsuarioRN {
 	}
 	
 	public void ativar(Usuario usuario) throws Exception {
-		//GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
+		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager, Usuario.class);
 		usuario.setAtivo(true);
 		usuarioDAO.salvar(usuario);
 	}
 	
 	public void desativar(Usuario usuario) throws Exception {
-		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
+		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager, Usuario.class);
 		usuario.setAtivo(false);
 		usuarioDAO.salvar(usuario);
 	}
 	
 	public Boolean verificaSenha(Usuario usuario, String senhaAtual) {
-		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
+		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager, Usuario.class);
 		Usuario usuarioPersistido = usuarioDAO.carregar(usuario.getId());
 		if (usuarioPersistido.getSenha().equals(GeralUtil.md5(senhaAtual))) {
 			return true;
@@ -97,7 +95,7 @@ public class UsuarioRN {
 	public void definirSenha(Usuario usuario, String senhaAtual, String novaSenha, String confirmaSenha) throws 
 		Exception, SenhaInvalidaException, SenhasNaoConferemException {
 		
-		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
+		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager, Usuario.class);
 		
 		if(!this.verificaSenha(usuario, senhaAtual)){
 			throw new SenhaInvalidaException();
@@ -113,12 +111,12 @@ public class UsuarioRN {
 	}	
 	
 	public Usuario atualizar(Usuario usuario) throws Exception {
-		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
+		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager, Usuario.class);
 		return usuarioDAO.salvar(usuario);
 	}
 
 	public void excluir(Usuario usuario) throws Exception {
-		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager);
+		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager, Usuario.class);
 		usuarioDAO.excluir(usuario);
 	}
 }

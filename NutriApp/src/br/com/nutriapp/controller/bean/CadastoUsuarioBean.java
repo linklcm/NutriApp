@@ -5,12 +5,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
+import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -28,8 +28,8 @@ public class CadastoUsuarioBean implements Serializable {
 
 	private static final long serialVersionUID = 5224777820210945920L;
 
-	@EJB
-	private UsuarioRN usuarioRN;
+	@Inject
+	UsuarioRN usuarioRN;
 
 	private Usuario usuario;
 

@@ -13,7 +13,7 @@
 		<form-login login-page="/publico/login.jsf"
 			authentication-failure-url="/publico/login.jsf?login_error=1"
 			authentication-success-handler-ref="successHandler" />
-		<logout logout-success-url="/restrito/principal.jsf" />
+		<logout logout-success-url="/publico/principal.jsf" />
 	</http>	
 	
 	<authentication-manager id="dao-auth">

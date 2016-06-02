@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="title">Cadastro de Projetos</ui:define>
+	<ui:define name="conteudo">
+		<h2>Cadastro de Dietas</h2>
+		<p:messages id="msg" autoUpdate="true" />
+
+		<h:form id="usuarios">			
+  			<div class="campo-simples">
+		 	<p:dataTable var="dieta" value="#{dietaBean.dietas}" id="tblDietas" rows="30" 
+		 	rowKey="#{dieta.nome}" selection="#{dietaBean.dieta}" selectionMode="single"
+			 emptyMessage="Não há dietas cadastradas." rowsPerPageTemplate="30,60,90" paginator="true"
+			 paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">		     
+				
+				<p:column headerText="Nome" style="text-align:center; width:200px">  
+					<h:outputText value="#{dieta.nome}" styleClass="left" />
+	    	    </p:column>
+	    	    
+	    	    <p:column style="width:32px;text-align: center">		        
+             		<p:commandButton icon="ui-icon-pencil" action="#{dietaBean.alterar()}">
+                		<f:setPropertyActionListener value="#{dieta}" target="#{dietaBean.dieta}" />
+            		</p:commandButton>       
+        		</p:column>
+        		
+        		<p:column style="width:32px;text-align: center">		        
+             		<p:commandButton update="tblDietas" icon="ui-icon-circle-close" action="#{dietaBean.excluir()}">
+                		<f:setPropertyActionListener value="#{dieta}" target="#{dietaBean.dieta}" />
+            		</p:commandButton>       
+        		</p:column>
+			</p:dataTable> 					
+			</div>
+			<div class="campo-botoes">
+				<p:commandButton value="Nova Dieta" action="#{dietaBean.novo()}" ajax="false"/>			
+			</div>		
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
