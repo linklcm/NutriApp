@@ -1,34 +1,30 @@
 package br.com.nutriapp.model.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "dietas")
-public class Dieta implements Serializable, br.com.nutriapp.model.dao.Entity {
-	
-	private static final long serialVersionUID = 1968071948118756855L;
+@Table(name = "alimentos")
+public class Alimento implements Serializable, br.com.nutriapp.model.dao.Entity {
+
+	private static final long serialVersionUID = 3585188164938745887L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull(message = "É necessário informar o nome da dieta")
 	private String nome;
 	
-	@OneToMany(mappedBy = "dieta", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval=true) 
-	private List<Refeicao> refeicoes = new ArrayList<Refeicao>();
-
+	@JoinColumn(name="fk_refeicao")
+	private Refeicao refeicao = new Refeicao();
+	
+	@Override
 	public Long getId() {
 		return id;
 	}
@@ -43,6 +39,14 @@ public class Dieta implements Serializable, br.com.nutriapp.model.dao.Entity {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Refeicao getRefeicao() {
+		return refeicao;
+	}
+
+	public void setRefeicao(Refeicao refeicao) {
+		this.refeicao = refeicao;
 	}
 
 	@Override
@@ -61,7 +65,7 @@ public class Dieta implements Serializable, br.com.nutriapp.model.dao.Entity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Dieta other = (Dieta) obj;
+		Alimento other = (Alimento) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

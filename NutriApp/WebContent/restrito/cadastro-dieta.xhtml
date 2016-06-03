@@ -1,0 +1,82 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/facelets/tags">
+
+<ui:composition template="/templates/common.xhtml">
+	<ui:define name="title">Cadastro de Projetos</ui:define>
+	<ui:define name="conteudo">
+		<h2>Cadastro de Dieta</h2>
+		<p:messages id="msg" autoUpdate="true" />
+
+		<h:form id="cadastro">
+			<p:fieldset id="fild">
+
+				<div class="campo-grupo">
+					<b><h:outputLabel value="Nome" /></b>
+					<p:inputText size="100" value="#{cadastroDietaBean.usuario.nome}"
+						id="edtNomePessoa" />
+				</div>				
+
+				<div class="clear" />
+
+				<p:fieldset id="fieldRefeicao" legend="Café da Manhã - 07H00"
+					style="width:514px">
+					<div class="campo-grupo">
+						<b><h:outputLabel value="Alimento" /></b>
+						<p:inputText style="width:240px;"
+							value="#{cadastroDietaBean.nomeAlimento}">							
+						</p:inputText>
+					</div>
+					<div class="campo-grupo">
+						<h:outputLabel value="." style="color:#FFFFFF" />
+						<p:commandButton alt="Adicionar Alimento"
+							icon="ui-icon-plus"
+							process="cadastro:fieldRefeicao"
+							action="#{cadastroDietaBean.adicionaAlimento()}"
+							update="cadastro:fieldRefeicao" />
+					</div>
+					<div class="clear" />
+
+					<div class="campo-simples">
+						<p:dataTable id="tableCafeDaManha" var="a"
+							value="#{cadastroDietaBean.cafeDaManha}"
+							style="width: 531px;">
+
+							<p:column sortBy="nome" headerText="Alimento"
+								style="text-align:center; width:200px">
+								<h:outputText value="#{a.nome}" />
+							</p:column>
+
+							<p:column headerText="" style="text-align:center; width:5px">
+								<p:commandButton icon="ui-icon-circle-close"
+									title="Excluir Permissão"
+									action="#{cadastroDietaBean.excluirAlimento()}"
+									update="cadastro:fieldPerfil"
+									process="@this">
+									<f:setPropertyActionListener
+										target="#{cadastroDietaBean.alimento}" value="#{per}" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+					</div>
+				</p:fieldset>
+
+			</p:fieldset>
+			<div class="campo-botoes">
+				<p:commandButton value="Salvar"
+					action="#{cadastroDietaBean.salvar()}">
+				</p:commandButton>
+			</div>
+
+			<div class="campo-botoes">
+				<p:commandButton value="Voltar" process="@this"
+					action="#{cadastroDietaBean.voltar()}">
+				</p:commandButton>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
