@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -46,6 +48,11 @@ public class Usuario implements Serializable, br.com.nutriapp.model.dao.Entity {
 
 	@OneToMany(mappedBy = "usuario", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval=true) 
 	private List<Permissao> permissoes = new ArrayList<Permissao>();
+	
+	@ManyToOne
+	@JoinColumn(name="fk_dieta")
+	@NotNull(message="É necessário informar a dieta")
+	private Dieta dieta = new Dieta();
 
 	@NotNull
 	private Boolean ativo = true;
@@ -116,6 +123,14 @@ public class Usuario implements Serializable, br.com.nutriapp.model.dao.Entity {
 	public void addPermissao(Permissao permissao) {
 		permissao.setUsuario(this);
 		this.permissoes.add(permissao);
+	}
+
+	public Dieta getDieta() {
+		return dieta;
+	}
+
+	public void setDieta(Dieta dieta) {
+		this.dieta = dieta;
 	}
 
 	public Boolean getAtivo() {

@@ -16,7 +16,10 @@
 				icon="ui-icon-home" />
 
 			<p:menuitem value="Fazer cadastro" url="/publico/cadastro.jsf"
-				icon="ui-icon-person" />
+				icon="ui-icon-person" rendered="#{contextoBean.usuario == null}"/>
+				
+			<p:menuitem value="Editar cadastro" url="/restrito/editar-cadastro.jsf"
+				icon="ui-icon-person" rendered="#{contextoBean.usuario != null}"/>
 				
 			<sec:ifAnyGranted roles="ROLE_ADMINISTRADOR">
 				<p:submenu label="Cadastro">

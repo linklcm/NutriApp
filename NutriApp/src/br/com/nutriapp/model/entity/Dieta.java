@@ -45,6 +45,19 @@ public class Dieta implements Serializable, br.com.nutriapp.model.dao.Entity {
 		this.nome = nome;
 	}
 
+	public List<Refeicao> getRefeicoes() {
+		return refeicoes;
+	}
+
+	public void setRefeicoes(List<Refeicao> refeicoes) {
+		this.refeicoes = refeicoes;
+	}
+	
+	public void addRefeicao(Refeicao refeicao) {
+		refeicao.setDieta(this);
+		this.refeicoes.add(refeicao);
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -68,5 +81,14 @@ public class Dieta implements Serializable, br.com.nutriapp.model.dao.Entity {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public Refeicao getRefeicao(String nome) {
+		for (Refeicao refeicao : this.refeicoes) {
+			if (refeicao.getNome().equals(nome)) {
+				return refeicao;
+			}
+		}
+		return null;
 	}
 }

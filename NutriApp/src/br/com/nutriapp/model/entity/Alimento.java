@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,9 +22,21 @@ public class Alimento implements Serializable, br.com.nutriapp.model.dao.Entity 
 	
 	private String nome;
 	
+	@ManyToOne
 	@JoinColumn(name="fk_refeicao")
 	private Refeicao refeicao = new Refeicao();
+		
+	public Alimento() {
+		super();		
+	}
 	
+	public Alimento(String nome, Refeicao refeicao) {
+		super();
+		
+		this.nome = nome;
+		this.refeicao = refeicao;
+	}
+
 	@Override
 	public Long getId() {
 		return id;

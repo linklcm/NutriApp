@@ -11,10 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "refeicoes")
@@ -25,17 +27,30 @@ public class Refeicao implements Serializable, br.com.nutriapp.model.dao.Entity 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+		
+	@NotNull(message = "É necessário informar o nome da refeição")
 	private String nome;
+	
 	@Temporal(TemporalType.TIME)
 	private Date horario;
 	
+	@ManyToOne
 	@JoinColumn(name="fk_dieta")
 	private Dieta dieta = new Dieta();
 	
 	@OneToMany(mappedBy = "refeicao", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval=true) 
-	private List<Alimento> alimentos= new ArrayList<Alimento>();
+	private List<Alimento> alimentos = new ArrayList<Alimento>();
 	
+	public Refeicao() {
+		super();
+	}
+	
+	public Refeicao(String nome, Date horario) {
+		super();
+		this.nome = nome;
+		this.horario = horario;		
+	}
+
 	@Override
 	public Long getId() {
 		return id;
@@ -67,6 +82,18 @@ public class Refeicao implements Serializable, br.com.nutriapp.model.dao.Entity 
 
 	public void setHorario(Date horario) {
 		this.horario = horario;
+	}	
+
+	public List<Alimento> getAlimentos() {
+		return alimentos;
+	}
+
+	public void setAlimentos(List<Alimento> alimentos) {
+		this.alimentos = alimentos;
+	}
+	
+	public void addAlimento(String nome) {
+		this.alimentos.add(new Alimento(nome, this));
 	}
 
 	@Override

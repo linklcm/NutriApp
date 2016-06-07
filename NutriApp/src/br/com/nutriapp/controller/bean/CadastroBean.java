@@ -1,20 +1,21 @@
 package br.com.nutriapp.controller.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.context.Flash;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import br.com.nutriapp.ejb.DietaRN;
 import br.com.nutriapp.ejb.UsuarioRN;
 import br.com.nutriapp.exception.SenhasNaoConferemException;
 import br.com.nutriapp.exception.UsuarioJaCadastradoException;
+import br.com.nutriapp.model.entity.Dieta;
 import br.com.nutriapp.model.entity.Usuario;
 import br.com.nutriapp.util.FacesUtil;
 
@@ -26,10 +27,13 @@ public class CadastroBean implements Serializable {
 
 	@Inject
 	UsuarioRN usuarioRN;
+	
+	@Inject
+	DietaRN dietaRN;
 
 	private Usuario usuario;
 
-	private String dieta;
+	private List<Dieta> dietas;	
 	
 	@NotNull(message="É necessário informar a senha")
 	@Size(min=4, max=10, message = "A senha deve ter entre {min} e {max} caracteres.")
@@ -41,24 +45,19 @@ public class CadastroBean implements Serializable {
 
 	@PostConstruct
 	public void iniciar() {		
-		
-		Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
-		// deixa a entrada passada como selecionado na página 
-		usuario = (Usuario)flash.get("usuarioSelecionado");
+		dietas = dietaRN.listar();
 
-		if(usuario != null){
-			//recarega para não problema com sessão.
-			usuario = usuarioRN.findById(usuario.getId());
-			senhaConfirmacao = usuario.getSenha();
-		} else {
-			usuario = new Usuario();
-		}
-	}
+		usuario = new Usuario();
+	}	
 
 	public Usuario getUsuario() {
 		return usuario;
 	}
 	
+	public List<Dieta> getDietas() {
+		return dietas;
+	}
+
 	public String getSenha() {
 		return senha;
 	}
@@ -74,15 +73,7 @@ public class CadastroBean implements Serializable {
 	public void setSenhaConfirmacao(String senhaConfirmacao) {
 		this.senhaConfirmacao = senhaConfirmacao;
 	}
-
-	public String getDieta() {
-		return dieta;
-	}
-
-	public void setDieta(String dieta) {
-		this.dieta = dieta;
-	}
-
+	
 	public void salvaUsuario() {
 		
 		try {

@@ -7,7 +7,7 @@
 <ui:composition template="/templates/common.xhtml">
 	<ui:define name="title">Cadastro de Projetos</ui:define>
 	<ui:define name="conteudo">
-		<h2>Fazer Cadastro</h2>
+		<h2>Editar Cadastro</h2>
 		<p:messages id="msg" autoUpdate="true" />
 
 		<h:form id="cadastro">
@@ -15,49 +15,36 @@
 
 				<div class="campo-grupo">
 					<b><h:outputLabel value="Login" /></b>
-					<p:inputText size="20" value="#{cadastroBean.usuario.nome}"
+					<p:inputText size="20" value="#{editarCadastroBean.usuario.nome}"
 						id="edtLogin" />
 				</div>
 
 				<div class="campo-grupo">
 					<b><h:outputLabel value="E-mail" /></b>
-					<p:inputText size="100" value="#{cadastroBean.usuario.email}"
+					<p:inputText size="100" value="#{editarCadastroBean.usuario.email}"
 						id="edtEmail" />
-				</div>
-
-				<div class="campo-grupo">
-					<b><h:outputLabel for="pwd1" value="Senha" /></b>
-					<p:password id="pwd1" size="20" value="#{cadastroBean.senha}" />
-				</div>
-				<div class="campo-grupo">
-					<b><h:outputLabel for="pwd2" value="Confirme a senha" /></b>
-					<p:password id="pwd2" size="20"
-						value="#{cadastroBean.senhaConfirmacao}" />
-				</div>
-
-				<div class="clear" />
-
+				</div>				
 
 				<div class="campo-grupo">
 					<b><h:outputLabel value="Dieta" /></b>
 					<p:selectOneMenu style="width:240px;"					
-						value="#{cadastroBean.usuario.dieta}"
+						value="#{editarCadastroBean.usuario.dieta}"
 						converter="entityConversor">
 						<f:selectItem itemLabel="" />						
-						<f:selectItems value="#{cadastroBean.dietas}" var="d"
+						<f:selectItems value="#{editarCadastroBean.dietas}" var="d"
 							itemValue="#{d}" itemLabel="#{d.nome}" />
 					</p:selectOneMenu>
 				</div>
 			</p:fieldset>
 			<div class="campo-botoes">
 				<p:commandButton value="Salvar" process="@form" update="@form"
-					action="#{cadastroBean.salvaUsuario()}">
+					action="#{editarCadastroBean.salvaUsuario()}">
 				</p:commandButton>
 			</div>
 
 			<div class="campo-botoes">
 				<p:commandButton value="Voltar" process="@this"
-					action="#{cadastroBean.voltar()}">
+					action="#{editarCadastroBean.voltar()}">
 				</p:commandButton>
 			</div>
 		</h:form>

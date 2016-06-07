@@ -13,6 +13,7 @@ import br.com.nutriapp.exception.SenhaInvalidaException;
 import br.com.nutriapp.exception.SenhasNaoConferemException;
 import br.com.nutriapp.exception.UsuarioJaCadastradoException;
 import br.com.nutriapp.model.dao.GenericDAO;
+import br.com.nutriapp.model.entity.Dieta;
 import br.com.nutriapp.model.entity.Permissao;
 import br.com.nutriapp.model.entity.Usuario;
 import br.com.nutriapp.util.GeralUtil;
@@ -118,5 +119,13 @@ public class UsuarioRN {
 	public void excluir(Usuario usuario) throws Exception {
 		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager, Usuario.class);
 		usuarioDAO.excluir(usuario);
+	}
+
+	public List<Usuario> listarPor(Dieta dieta) {
+		GenericDAO<Usuario> usuarioDAO = new GenericDAO<Usuario>(entityManager, Usuario.class);
+		
+		return usuarioDAO.buscar()
+				.comCriterio(Restrictions.eq("dieta", dieta))
+				.lista();
 	}
 }

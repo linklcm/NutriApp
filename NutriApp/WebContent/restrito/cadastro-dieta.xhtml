@@ -12,61 +12,269 @@
 		<p:messages id="msg" autoUpdate="true" />
 
 		<h:form id="cadastro">
-			<p:fieldset id="fild">
 
+			<div class="campo-grupo">
+				<b><h:outputLabel value="Nome" /></b>
+				<p:inputText style="width: 997px; margin-bottom: 15px" value="#{cadastroDietaBean.dieta.nome}"
+					id="edtNome" />
+			</div>
+
+			<div class="clear" />
+
+			<p:fieldset id="cafeDaManha" legend="Café da Manhã - 07H00"
+				style="margin-bottom: 15px;">
 				<div class="campo-grupo">
-					<b><h:outputLabel value="Nome" /></b>
-					<p:inputText size="100" value="#{cadastroDietaBean.usuario.nome}"
-						id="edtNomePessoa" />
-				</div>				
-
+					<b><h:outputLabel value="Alimento" /></b>
+					<p:inputText style="width:903px;"
+						required="true" 
+						requiredMessage="Informe a descrição do alimento"
+						value="#{cadastroDietaBean.nomeAlimento}">
+					</p:inputText>
+				</div>
+				<div class="campo-grupo">
+					<h:outputLabel value="." style="color:#FFFFFF" />
+					<p:commandButton alt="Adicionar Alimento" icon="ui-icon-plus"
+						process="cadastro:cafeDaManha"
+						action="#{cadastroDietaBean.addCafeDaManha()}"
+						update="cadastro:cafeDaManha" />
+				</div>
 				<div class="clear" />
 
-				<p:fieldset id="fieldRefeicao" legend="Café da Manhã - 07H00"
-					style="width:514px">
-					<div class="campo-grupo">
-						<b><h:outputLabel value="Alimento" /></b>
-						<p:inputText style="width:240px;"
-							value="#{cadastroDietaBean.nomeAlimento}">							
-						</p:inputText>
-					</div>
-					<div class="campo-grupo">
-						<h:outputLabel value="." style="color:#FFFFFF" />
-						<p:commandButton alt="Adicionar Alimento"
-							icon="ui-icon-plus"
-							process="cadastro:fieldRefeicao"
-							action="#{cadastroDietaBean.adicionaAlimento()}"
-							update="cadastro:fieldRefeicao" />
-					</div>
-					<div class="clear" />
+				<div class="campo-simples">
+					<p:dataTable id="tableCafeDaManha" var="a"
+						value="#{cadastroDietaBean.cafeDaManha.alimentos}" emptyMessage=""
+						style="width:977px;">
 
-					<div class="campo-simples">
-						<p:dataTable id="tableCafeDaManha" var="a"
-							value="#{cadastroDietaBean.cafeDaManha}"
-							style="width: 531px;">
+						<p:column sortBy="nome" headerText="Alimento"
+							style="text-align:center; width:200px">
+							<h:outputText value="#{a.nome}" />
+						</p:column>
 
-							<p:column sortBy="nome" headerText="Alimento"
-								style="text-align:center; width:200px">
-								<h:outputText value="#{a.nome}" />
-							</p:column>
-
-							<p:column headerText="" style="text-align:center; width:5px">
-								<p:commandButton icon="ui-icon-circle-close"
-									title="Excluir Permissão"
-									action="#{cadastroDietaBean.excluirAlimento()}"
-									update="cadastro:fieldPerfil"
-									process="@this">
-									<f:setPropertyActionListener
-										target="#{cadastroDietaBean.alimento}" value="#{per}" />
-								</p:commandButton>
-							</p:column>
-						</p:dataTable>
-					</div>
-				</p:fieldset>
-
+						<p:column headerText="" style="text-align:center; width:5px">
+							<p:commandButton icon="ui-icon-circle-close"
+								title="Excluir Permissão"
+								action="#{cadastroDietaBean.excluirAlimento()}"
+								update="tableCafeDaManha" process="@this">
+								<f:setPropertyActionListener
+									target="#{cadastroDietaBean.alimento}" value="#{a}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</div>
 			</p:fieldset>
+			
+			<p:fieldset id="lancheDaManha" legend="Lanche da Manhã - 10H00"
+				style="margin-bottom: 15px;">
+				<div class="campo-grupo">
+					<b><h:outputLabel value="Alimento" /></b>
+					<p:inputText style="width:903px;"
+						required="true" 
+						requiredMessage="Informe a descrição do alimento"
+						value="#{cadastroDietaBean.nomeAlimento}">
+					</p:inputText>
+				</div>
+				<div class="campo-grupo">
+					<h:outputLabel value="." style="color:#FFFFFF" />
+					<p:commandButton alt="Adicionar Alimento" icon="ui-icon-plus"
+						process="cadastro:lancheDaManha"
+						action="#{cadastroDietaBean.addLancheDaManha()}"
+						update="cadastro:lancheDaManha" />
+				</div>
+				<div class="clear" />
+
+				<div class="campo-simples">
+					<p:dataTable id="tableLancheDaManha" var="a"
+						value="#{cadastroDietaBean.lancheDaManha.alimentos}" emptyMessage=""
+						style="width:977px;">
+
+						<p:column sortBy="nome" headerText="Alimento"
+							style="text-align:center; width:200px">
+							<h:outputText value="#{a.nome}" />
+						</p:column>
+
+						<p:column headerText="" style="text-align:center; width:5px">
+							<p:commandButton icon="ui-icon-circle-close"
+								title="Excluir Permissão"
+								action="#{cadastroDietaBean.excluirAlimento()}"
+								update="tableLancheDaManha" process="@this">
+								<f:setPropertyActionListener
+									target="#{cadastroDietaBean.alimento}" value="#{a}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</div>
+			</p:fieldset>
+			
+			<p:fieldset id="almoco" legend="Almoço - 12H30"
+				style="margin-bottom: 15px;">
+				<div class="campo-grupo">
+					<b><h:outputLabel value="Alimento" /></b>
+					<p:inputText style="width:903px;"
+						required="true" 
+						requiredMessage="Informe a descrição do alimento"
+						value="#{cadastroDietaBean.nomeAlimento}">
+					</p:inputText>
+				</div>
+				<div class="campo-grupo">
+					<h:outputLabel value="." style="color:#FFFFFF" />
+					<p:commandButton alt="Adicionar Alimento" icon="ui-icon-plus"
+						process="cadastro:almoco"
+						action="#{cadastroDietaBean.addAlmoco()}"
+						update="cadastro:almoco" />
+				</div>
+				<div class="clear" />
+
+				<div class="campo-simples">
+					<p:dataTable id="tableAlmoco" var="a"
+						value="#{cadastroDietaBean.almoco.alimentos}" emptyMessage=""
+						style="width:977px;">
+
+						<p:column sortBy="nome" headerText="Alimento"
+							style="text-align:center; width:200px">
+							<h:outputText value="#{a.nome}" />
+						</p:column>
+
+						<p:column headerText="" style="text-align:center; width:5px">
+							<p:commandButton icon="ui-icon-circle-close"
+								title="Excluir Permissão"
+								action="#{cadastroDietaBean.excluirAlimento()}"
+								update="tableAlmoco" process="@this">
+								<f:setPropertyActionListener
+									target="#{cadastroDietaBean.alimento}" value="#{a}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</div>
+			</p:fieldset>
+			
+			<p:fieldset id="lancheDaTarde" legend="Lanche da Tarde - 15H30"
+				style="margin-bottom: 15px;">
+				<div class="campo-grupo">
+					<b><h:outputLabel value="Alimento" /></b>
+					<p:inputText style="width:903px;"
+						required="true" 
+						requiredMessage="Informe a descrição do alimento"
+						value="#{cadastroDietaBean.nomeAlimento}">
+					</p:inputText>
+				</div>
+				<div class="campo-grupo">
+					<h:outputLabel value="." style="color:#FFFFFF" />
+					<p:commandButton alt="Adicionar Alimento" icon="ui-icon-plus"
+						process="cadastro:lancheDaTarde"
+						action="#{cadastroDietaBean.addLancheDaTarde()}"
+						update="cadastro:lancheDaTarde" />
+				</div>
+				<div class="clear" />
+
+				<div class="campo-simples">
+					<p:dataTable id="tableLancheDaTarde" var="a"
+						value="#{cadastroDietaBean.lancheDaTarde.alimentos}" emptyMessage=""
+						style="width:977px;">
+
+						<p:column sortBy="nome" headerText="Alimento"
+							style="text-align:center; width:200px">
+							<h:outputText value="#{a.nome}" />
+						</p:column>
+
+						<p:column headerText="" style="text-align:center; width:5px">
+							<p:commandButton icon="ui-icon-circle-close"
+								title="Excluir Permissão"
+								action="#{cadastroDietaBean.excluirAlimento()}"
+								update="tableLancheDaTarde" process="@this">
+								<f:setPropertyActionListener
+									target="#{cadastroDietaBean.alimento}" value="#{a}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</div>
+			</p:fieldset>
+			
+			<p:fieldset id="jantar" legend="Jantar - 18H30"
+				style="margin-bottom: 15px;">
+				<div class="campo-grupo">
+					<b><h:outputLabel value="Alimento" /></b>
+					<p:inputText style="width:903px;"
+						required="true" 
+						requiredMessage="Informe a descrição do alimento"
+						value="#{cadastroDietaBean.nomeAlimento}">
+					</p:inputText>
+				</div>
+				<div class="campo-grupo">
+					<h:outputLabel value="." style="color:#FFFFFF" />
+					<p:commandButton alt="Adicionar Alimento" icon="ui-icon-plus"
+						process="cadastro:jantar"
+						action="#{cadastroDietaBean.addJantar()}"
+						update="cadastro:jantar" />
+				</div>
+				<div class="clear" />
+
+				<div class="campo-simples">
+					<p:dataTable id="tableJantar" var="a"
+						value="#{cadastroDietaBean.jantar.alimentos}" emptyMessage=""
+						style="width:977px;">
+
+						<p:column sortBy="nome" headerText="Alimento"
+							style="text-align:center; width:200px">
+							<h:outputText value="#{a.nome}" />
+						</p:column>
+
+						<p:column headerText="" style="text-align:center; width:5px">
+							<p:commandButton icon="ui-icon-circle-close"
+								title="Excluir Permissão"
+								action="#{cadastroDietaBean.excluirAlimento()}"
+								update="tableJantar" process="@this">
+								<f:setPropertyActionListener
+									target="#{cadastroDietaBean.alimento}" value="#{a}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</div>
+			</p:fieldset>
+			
+			<p:fieldset id="lancheDaNoite" legend="Lanche da Noite - 22H00"
+				style="margin-bottom: 15px;">
+				<div class="campo-grupo">
+					<b><h:outputLabel value="Alimento" /></b>
+					<p:inputText style="width:903px;"
+						required="true" 
+						requiredMessage="Informe a descrição do alimento"
+						value="#{cadastroDietaBean.nomeAlimento}">
+					</p:inputText>
+				</div>
+				<div class="campo-grupo">
+					<h:outputLabel value="." style="color:#FFFFFF" />
+					<p:commandButton alt="Adicionar Alimento" icon="ui-icon-plus"
+						process="cadastro:lancheDaNoite"
+						action="#{cadastroDietaBean.addLancheDaNoite()}"
+						update="cadastro:lancheDaNoite" />
+				</div>
+				<div class="clear" />
+
+				<div class="campo-simples">
+					<p:dataTable id="tableLancheDaNoite" var="a"
+						value="#{cadastroDietaBean.lancheDaNoite.alimentos}" emptyMessage=""
+						style="width:977px;">
+
+						<p:column sortBy="nome" headerText="Alimento"
+							style="text-align:center; width:200px">
+							<h:outputText value="#{a.nome}" />
+						</p:column>
+
+						<p:column headerText="" style="text-align:center; width:5px">
+							<p:commandButton icon="ui-icon-circle-close"
+								title="Excluir Permissão"
+								action="#{cadastroDietaBean.excluirAlimento()}"
+								update="tableLancheDaNoite" process="@this">
+								<f:setPropertyActionListener
+									target="#{cadastroDietaBean.alimento}" value="#{a}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</div>
+			</p:fieldset>
+
 			<div class="campo-botoes">
-				<p:commandButton value="Salvar"
+				<p:commandButton value="Salvar" process="edtNome, @this"
 					action="#{cadastroDietaBean.salvar()}">
 				</p:commandButton>
 			</div>
