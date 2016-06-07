@@ -28,7 +28,7 @@ public class ContextoBean implements Serializable {
 	
 	@PostConstruct
 	public void init() {
-		Usuario usuario = new Usuario("linklcm", "linklcm@gmail.com", "linklcm");
+		Usuario usuario = new Usuario("linklcm", "linklcm@gmail.com", "link");
 		usuario.addPermissao(new Permissao("ROLE_ADMINISTRADOR"));
 		 try {			 
 			 usuarioRN.salvar(usuario, "link", "link");

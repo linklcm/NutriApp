@@ -51,8 +51,7 @@ public class Usuario implements Serializable, br.com.nutriapp.model.dao.Entity {
 	
 	@ManyToOne
 	@JoinColumn(name="fk_dieta")
-	@NotNull(message="É necessário informar a dieta")
-	private Dieta dieta = new Dieta();
+	private Dieta dieta;
 
 	@NotNull
 	private Boolean ativo = true;

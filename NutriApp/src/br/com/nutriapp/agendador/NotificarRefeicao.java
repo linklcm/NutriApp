@@ -124,13 +124,13 @@ public class NotificarRefeicao {
 		props.put("mail.smtp.socketFactory.fallback", "false");  
 		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         
-        String from = "nome@gmail.com";
+        String from = "nutriappteste@gmail.com";
         String fromName = "NutriApp";
 
         Session session = Session.getDefaultInstance(props,
                new javax.mail.Authenticator() {
                      protected PasswordAuthentication getPasswordAuthentication() {
-                           return new PasswordAuthentication(from, "senha");
+                           return new PasswordAuthentication(from, "nutriappengsof");
                      }
         });
 

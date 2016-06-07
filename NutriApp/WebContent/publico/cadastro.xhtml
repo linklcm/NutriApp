@@ -42,6 +42,8 @@
 					<b><h:outputLabel value="Dieta" /></b>
 					<p:selectOneMenu style="width:240px;"					
 						value="#{cadastroBean.usuario.dieta}"
+						required="true"
+						requiredMessage="É necessário informar a dieta"
 						converter="entityConversor">
 						<f:selectItem itemLabel="" />						
 						<f:selectItems value="#{cadastroBean.dietas}" var="d"
